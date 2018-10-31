@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Graphics="Microsoft.Xna.Framework.Graphics" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Font.spritefont</Source>
+      <Name>Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Font.xnb</Output>
+      <Time>2010-07-30T20:20:28.7785044-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Shaders\Phong.fx</Source>
+      <Name>Shaders\Phong</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Shaders\Phong.xnb</Output>
+      <Time>2010-07-30T23:57:49.2143747-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Shaders\EnvironmentMap.fx</Source>
+      <Name>Shaders\EnvironmentMap</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Shaders\EnvironmentMap.xnb</Output>
+      <Time>2010-07-30T22:38:24.2338334-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Shaders\Water.fx</Source>
+      <Name>Shaders\Water</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Shaders\Water.xnb</Output>
+      <Time>2010-08-03T01:11:47.0370048-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\whitetex.dds</Source>
+      <Name>Textures\whitetex</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Textures\whitetex.xnb</Output>
+      <Time>2010-07-30T20:20:34.5508346-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\grassCUBE.dds</Source>
+      <Name>Textures\grassCUBE</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Textures\grassCUBE.xnb</Output>
+      <Time>2010-07-30T20:20:33.9688013-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\wave0.dds</Source>
+      <Name>Textures\wave0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Textures\wave0.xnb</Output>
+      <Time>2010-07-30T20:20:34.2288162-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\wave1.dds</Source>
+      <Name>Textures\wave1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Textures\wave1.xnb</Output>
+      <Time>2010-07-30T20:20:34.522833-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\flowmap.png</Source>
+      <Name>Textures\flowmap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Textures\flowmap.xnb</Output>
+      <Time>2010-08-02T23:12:33.2792781-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\noise.png</Source>
+      <Name>Textures\noise</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Textures\noise.xnb</Output>
+      <Time>2010-07-30T21:53:10.680627-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\sphere.x</Source>
+      <Name>Models\sphere</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Models\sphere.xnb</Output>
+      <Time>2010-07-30T20:20:33.0997516-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Release\Models\sphere_0.xml</Key>
+        <Value>2010-08-03T02:08:10.8145458-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\BasicColumnScene.x</Source>
+      <Name>Models\BasicColumnScene</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Models\BasicColumnScene.xnb</Output>
+      <Time>2010-07-30T20:20:29.1045231-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Release\Models\BasicColumnScene_0.xml</Key>
+        <Value>2010-08-03T02:08:13.4136945-05:00</Value>
+      </Dependency>
+      <Request>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Models\floor_color_0.xnb</Request>
+      <Request>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Models\bricks_color_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\dragon.X</Source>
+      <Name>Models\dragon</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Models\dragon.xnb</Output>
+      <Time>2010-07-30T20:20:32.9657439-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Release\Models\dragon_0.xml</Key>
+        <Value>2010-08-03T02:08:23.3682638-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\sphere.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Release\Models\sphere_0.xml</Output>
+      <Time>2010-07-30T20:20:33.0997516-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\BasicColumnScene.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Release\Models\BasicColumnScene_0.xml</Output>
+      <Time>2010-07-30T20:20:29.1045231-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\floor_color.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Models\floor_color_0.xnb</Output>
+      <Time>2010-07-30T20:20:33.0687498-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\bricks_color.png</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Graphics:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\Models\bricks_color_0.xnb</Output>
+      <Time>2010-07-30T20:20:29.3225356-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\dragon.X</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Release\Models\dragon_0.xml</Output>
+      <Time>2010-07-30T20:20:32.9657439-05:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\Content\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2009-05-27T23:16:14-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2009-05-27T23:16:06-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2009-05-27T23:16:16-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2009-05-27T23:16:26-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2009-05-27T23:16:12-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2009-05-27T23:16:06-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.1.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2010-01-07T00:49:41.4727557-06:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
