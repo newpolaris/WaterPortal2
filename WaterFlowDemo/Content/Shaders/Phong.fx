@@ -17,6 +17,9 @@ float4	LightDiffuse2;
 float4	LightAmbient2;
 float3	LightDir2;
 
+bool    ClipPlaneEnable;
+float4  Clipplane;
+
 texture  DiffuseTex;
 float TexScale;
 
@@ -37,6 +40,7 @@ struct OutputVS
     float3 normalW : TEXCOORD0;
     float2 tex0    : TEXCOORD1;
 	float  height  : TEXCOORD2;
+    float3 posW    : TEXCOORD3;
 };
 
 
@@ -45,6 +49,7 @@ OutputVS PhongVS(float3 posL : POSITION0, float3 normalL : NORMAL0)
     // Zero out our output.
 	OutputVS outVS = (OutputVS)0;
 	
+    outVS.posW = mul(float4(posL, 1.0f), World);
 	// Transform to homogeneous clip space.
 	outVS.posH = mul(float4(posL, 1.0f), WorldViewProj);
 	
@@ -60,8 +65,10 @@ OutputVS PhongVS(float3 posL : POSITION0, float3 normalL : NORMAL0)
     return outVS;
 }
 
-float4 PhongPS(float3 normalW : TEXCOORD0, float2 tex0 : TEXCOORD1, float height : TEXCOORD2) : COLOR
+float4 PhongPS(float3 positionW : TEXCOORD3, float3 normalW : TEXCOORD0, float2 tex0 : TEXCOORD1, float height : TEXCOORD2) : COLOR
 {
+    clip(dot(Clipplane, float4(positionW, 1.0))); 
+
 	// Interpolated normals can become unnormal--so normalize.
 	normalW = normalize(normalW);
 	
@@ -95,7 +102,7 @@ technique Phong
     pass P0
     {
         // Specify the vertex and pixel shader associated with this pass.
-        vertexShader = compile vs_2_0 PhongVS();
-        pixelShader  = compile ps_2_0 PhongPS();
+        vertexShader = compile vs_3_0 PhongVS();
+        pixelShader  = compile ps_3_0 PhongPS();
     }
 }

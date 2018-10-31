@@ -29,8 +29,6 @@ namespace WaterFlowDemo
 
         private int mWaterTechnique;
 
-        private RasterizerState rsCullNone;
-
         #endregion
 
         public WaterFlowDemo()
@@ -59,9 +57,6 @@ namespace WaterFlowDemo
         /// </summary>
         protected override void Initialize()
         {
-            rsCullNone = new RasterizerState();
-            rsCullNone.CullMode = CullMode.None;
-
             //Setup the camera used to render with
             mCamera = new Camera();
             mCamera.LookAt( new Vector3( 23.0f, 6.5f, -41.4f ), new Vector3( 11.0f, 6.7f, -32.0f ) );
@@ -76,7 +71,7 @@ namespace WaterFlowDemo
             mesh.EffectAsset = "Shaders/EnvironmentMap";
             mesh.EnvironmentTextureAsset = "Textures/grassCUBE";
 
-            // Components.Add( mesh );
+            Components.Add( mesh );
 
             //load the column scene
             mesh = new Mesh( this );
@@ -187,7 +182,7 @@ namespace WaterFlowDemo
             mWaterMesh.UpdateWaterMaps( gameTime );
 
             GraphicsDevice.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 1 );
-            GraphicsDevice.RasterizerState = rsCullNone;
+            GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
             base.Draw( gameTime );
 
@@ -203,7 +198,7 @@ namespace WaterFlowDemo
         /// For the refraction pass, the reflMatrix will just be the Identity Matrix
         /// </summary>
         /// <param name="reflMatrix"></param>
-        private void DrawObjects( Matrix reflMatrix )
+        private void DrawObjects( Matrix reflMatrix, bool bclip, Plane clipplane )
         {
             Mesh model;
             foreach ( DrawableGameComponent mesh in Components )
@@ -219,7 +214,7 @@ namespace WaterFlowDemo
                 //combine the old matrix with the refleciton matrix
                 model.World = oldWorld * reflMatrix;
 
-                model.Draw( mGameTime );
+                model.Draw( mGameTime, bclip, clipplane );
 
                 //restore the old matrix for regular rendering
                 model.World = oldWorld;

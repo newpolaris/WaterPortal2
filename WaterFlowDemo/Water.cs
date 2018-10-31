@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace WaterFlowDemo
 {
     //delegate that the water component calls to render the objects in the scene
-    public delegate void RenderObjects( Matrix reflectionMatrix );
+    public delegate void RenderObjects( Matrix reflectionMatrix, bool bclip, Plane clipplane );
 
     /// <summary>
     /// Options that must be passed to the water component before Initialization
@@ -61,7 +61,6 @@ namespace WaterFlowDemo
         //vertex and index buffers for the water plane
         private VertexBuffer mVertexBuffer;
         private IndexBuffer mIndexBuffer;
-        private VertexDeclaration mDecl;
 
         //water shader
         private Effect mEffect;
@@ -202,7 +201,6 @@ namespace WaterFlowDemo
             mIndexBuffer = new IndexBuffer( Game.GraphicsDevice, typeof( int ), indices.Length, BufferUsage.WriteOnly );
             mIndexBuffer.SetData( indices );
 
-            //normalzie the sun direction in case the user didn't
             mOptions.FlowMapOffset0 = 0.0f;
             mOptions.FlowMapOffset1 = HalfCycle;
         }
@@ -246,6 +244,7 @@ namespace WaterFlowDemo
 
                 mEffect.Parameters[ "WaterColor" ].SetValue( mOptions.WaterColor );
                 mEffect.Parameters[ "SunColor" ].SetValue( mOptions.SunColor );
+                //normalzie the sun direction in case the user didn't
                 mEffect.Parameters[ "SunDirection" ].SetValue( Vector3.Normalize( mOptions.SunDirection ) );
                 mEffect.Parameters[ "SunFactor" ].SetValue( mOptions.SunFactor );
                 mEffect.Parameters[ "SunPower" ].SetValue( mOptions.SunPower );
@@ -334,19 +333,12 @@ namespace WaterFlowDemo
             //reflection plane in homogeneous space
             Vector4 waterPlaneH = Vector4.Transform( waterPlaneL, wvpInvTrans );
 
-            // TODO
-            // GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = true;
-            // GraphicsDevice.ClipPlanes[ 0 ].Plane = new Plane( waterPlaneH );
-
             Matrix reflectionMatrix = Matrix.CreateReflection( new Plane( waterPlaneW ) );
 
             if ( mDrawFunc != null )
-                mDrawFunc( reflectionMatrix );
+                mDrawFunc( reflectionMatrix, true, new Plane( waterPlaneW ) );
 
             Game.GraphicsDevice.RasterizerState = RasterizerState.CullClockwise;
-            // TODO
-            // Game.GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = false;
-
             Game.GraphicsDevice.SetRenderTarget( null );
 
 
@@ -369,30 +361,28 @@ namespace WaterFlowDemo
             Game.GraphicsDevice.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 1 );
 
             //only clip if the camera is above the water plane
-            if ( mViewPos.Y > World.Translation.Y )
+            if (mViewPos.Y > World.Translation.Y)
             {
                 //refrection plane in local space
                 //here w=1.1f is a fudge factor so that we don't get gaps between objects and their refraction
                 //on the water. It effective raises or lowers the height of the clip plane. w=0.0 will be the clip plane
                 //at the water level. 1.1f raises the clip plane above the water level.
-                waterPlaneL = new Vector4( 0.0f, -1.0f, 0.0f, 1.5f );
+                waterPlaneL = new Vector4(0.0f, -1.0f, 0.0f, 1.5f);
 
                 //refrection plane in world space
-                waterPlaneW = Vector4.Transform( waterPlaneL, wInvTrans );
+                waterPlaneW = Vector4.Transform(waterPlaneL, wInvTrans);
 
                 //refrection plane in homogeneous space
-                waterPlaneH = Vector4.Transform( waterPlaneL, wvpInvTrans );
+                waterPlaneH = Vector4.Transform(waterPlaneL, wvpInvTrans);
 
-                // TODO
-                // Game.GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = true;
-                // Game.GraphicsDevice.ClipPlanes[ 0 ].Plane = new Plane( waterPlaneH );
+                if (mDrawFunc != null)
+                    mDrawFunc(Matrix.Identity, true, new Plane(waterPlaneW));
+            }
+            else if (mDrawFunc != null)
+            {
+                mDrawFunc(Matrix.Identity, false, new Plane() );
             }
 
-            if ( mDrawFunc != null )
-                mDrawFunc( Matrix.Identity );
-
-            // TODO
-            // GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = false;
             Game.GraphicsDevice.SetRenderTarget( null );
         }
 

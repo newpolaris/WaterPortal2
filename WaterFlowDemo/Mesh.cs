@@ -235,15 +235,28 @@ namespace WaterFlowDemo
             //draw with the basic effect
             if (mEffect == null)
             {
-                DrawBasicEffect();
+                DrawBasicEffect(false, new Plane());
             }
             else
             {
-                DrawCustomEffect();
+                DrawCustomEffect(false, new Plane());
             }
         }
 
-        protected virtual void DrawBasicEffect()
+        public void Draw(GameTime gameTime, bool bclipplane, Plane clipplane)
+        {
+            //draw with the basic effect
+            if (mEffect == null)
+            {
+                DrawBasicEffect(bclipplane, clipplane);
+            }
+            else
+            {
+                DrawCustomEffect(bclipplane, clipplane);
+            }
+        }
+
+        protected virtual void DrawBasicEffect(bool bClipPlane, Plane clipplane)
         {
             Matrix[] boneTransforms = new Matrix[mMesh.Bones.Count];
             mMesh.CopyAbsoluteBoneTransformsTo(boneTransforms);
@@ -280,7 +293,7 @@ namespace WaterFlowDemo
             }
         }
 
-        protected virtual void DrawCustomEffect()
+        protected virtual void DrawCustomEffect(bool bClipPlane, Plane clipplane)
         {
             Matrix[] boneTransforms = new Matrix[mMesh.Bones.Count];
             mMesh.CopyAbsoluteBoneTransformsTo(boneTransforms);
@@ -292,6 +305,9 @@ namespace WaterFlowDemo
                 Matrix worldInvTrans = Matrix.Invert(world);
                 worldInvTrans = Matrix.Transpose(worldInvTrans);
 
+                Vector4 plane = new Vector4(clipplane.Normal, clipplane.D);
+                mEffect.Parameters["ClipPlaneEnable"].SetValue( bClipPlane );
+                mEffect.Parameters["Clipplane"].SetValue( plane );
                 mEffect.Parameters["World"].SetValue( world );
                 mEffect.Parameters["WorldInvTrans"].SetValue(worldInvTrans);
                 mEffect.Parameters["WorldViewProj"].SetValue(world * mView * mProj);
@@ -304,10 +320,7 @@ namespace WaterFlowDemo
                     part.Effect = mEffect;
 
                 foreach (EffectPass pass in mEffect.CurrentTechnique.Passes)
-                {
-                    pass.Apply();
                     mesh.Draw();
-                }
             }
         }
 

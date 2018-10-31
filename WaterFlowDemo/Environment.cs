@@ -36,6 +36,9 @@ namespace WaterFlowDemo
 
             foreach (ModelMesh mesh in mMesh.Meshes)
             {
+                foreach (var part in mesh.MeshParts)
+                    part.Effect = mEffect; 
+
                 foreach (EffectPass pass in mEffect.CurrentTechnique.Passes)
                 {
                     pass.Apply();
