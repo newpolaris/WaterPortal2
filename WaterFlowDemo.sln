@@ -1,6 +1,10 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterFlowDemo", "WaterFlowDemo\WaterFlowDemo.csproj", "{4F1D4E0F-7599-4C4E-8E21-6E56F7E00EE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterFlowDemoContent", "WaterFlowDemo\Content\WaterFlowDemoContent.contentproj", "{A201E7D9-389C-49B2-9A32-1C1B209D7AE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D5A4818-D573-488A-AA5F-F5AD64A55AF2}
 	EndGlobalSection
 EndGlobal

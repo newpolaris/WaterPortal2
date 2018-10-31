@@ -19,3 +19,5 @@ C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Debug\WaterFlowDemo.ex
 C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\bin\x86\Debug\WaterFlowDemo.pdb
 C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\obj\x86\Debug\WaterFlowDemo.exe
 C:\Users\kyle\Desktop\WaterFlowDemo\WaterFlowDemo\obj\x86\Debug\WaterFlowDemo.pdb
+C:\Users\newpolaris\Projects\Graphicsrunner\WaterFlowDemo\WaterFlowDemo\obj\x86\Debug\WaterFlowDemo.exe
+C:\Users\newpolaris\Projects\Graphicsrunner\WaterFlowDemo\WaterFlowDemo\obj\x86\Debug\WaterFlowDemo.pdb
