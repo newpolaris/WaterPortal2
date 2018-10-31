@@ -40,7 +40,7 @@ struct OutputVS
 };
 
 
-OutputVS PhongVS(float3 posL : POSITION0, float3 normalL : NORMAL0, float2 tex0: TEXCOORD0)
+OutputVS PhongVS(float3 posL : POSITION0, float3 normalL : NORMAL0)
 {
     // Zero out our output.
 	OutputVS outVS = (OutputVS)0;
@@ -52,7 +52,7 @@ OutputVS PhongVS(float3 posL : POSITION0, float3 normalL : NORMAL0, float2 tex0:
 	outVS.normalW = mul(float4(normalL, 0.0f), WorldInvTrans).xyz;	
 	
 	// Pass on texture coordinates to be interpolated in rasterization.
-	outVS.tex0 = tex0;
+	outVS.tex0 = 0.f;
 
 	outVS.height = mul(float4(posL, 1.0f), World).y;
 

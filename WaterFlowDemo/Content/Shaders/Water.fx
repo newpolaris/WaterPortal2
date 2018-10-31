@@ -247,8 +247,8 @@ technique WaterTech
     pass Pass1
     {
         // Specify the vertex and pixel shader associated with this pass.
-        vertexShader = compile vs_2_0 WaterVS();
-        pixelShader  = compile ps_2_0 WaterFlowPS();
+        vertexShader = compile vs_3_0 WaterVS();
+        pixelShader  = compile ps_3_0 WaterFlowPS();
     }    
 }
 
@@ -257,8 +257,8 @@ technique NormalFlowTech
     pass Pass1
     {
         // Specify the vertex and pixel shader associated with this pass.
-        vertexShader = compile vs_2_0 WaterVS();
-        pixelShader  = compile ps_2_0 NormalFlowPS();
+        vertexShader = compile vs_3_0 WaterVS();
+        pixelShader  = compile ps_3_0 NormalFlowPS();
     }    
 }
 
@@ -267,7 +267,7 @@ technique FlowMapTech
     pass Pass1
     {
         // Specify the vertex and pixel shader associated with this pass.
-        vertexShader = compile vs_2_0 WaterVS();
-        pixelShader  = compile ps_2_0 FlowMapPS();
+        vertexShader = compile vs_3_0 WaterVS();
+        pixelShader  = compile ps_3_0 FlowMapPS();
     }    
 }

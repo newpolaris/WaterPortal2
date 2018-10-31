@@ -76,7 +76,7 @@ namespace WaterFlowDemo
             mesh.EffectAsset = "Shaders/EnvironmentMap";
             mesh.EnvironmentTextureAsset = "Textures/grassCUBE";
 
-            Components.Add( mesh );
+            // Components.Add( mesh );
 
             //load the column scene
             mesh = new Mesh( this );
@@ -121,7 +121,7 @@ namespace WaterFlowDemo
             mWaterMesh.World = Matrix.CreateTranslation( Vector3.UnitY * 2.5f );
             mWaterMesh.RenderObjects = DrawObjects;
 
-            // Components.Add( mWaterMesh );
+            Components.Add( mWaterMesh );
 
             base.Initialize();
 
@@ -183,9 +183,8 @@ namespace WaterFlowDemo
                 ( (Mesh)gc ).Projection = mCamera.Projection;
             }
 
-            // TODO:
-            // mWaterMesh.SetCamera( mCamera.ViewProj, mCamera.Position );
-            // mWaterMesh.UpdateWaterMaps( gameTime );
+            mWaterMesh.SetCamera( mCamera.ViewProj, mCamera.Position );
+            mWaterMesh.UpdateWaterMaps( gameTime );
 
             GraphicsDevice.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 1 );
             GraphicsDevice.RasterizerState = rsCullNone;
@@ -253,8 +252,7 @@ namespace WaterFlowDemo
             else if ( keyState.IsKeyDown( Keys.D3 ) )
                 mWaterTechnique = 2;
 
-            // TODO:
-            // mWaterMesh.Effect.CurrentTechnique = mWaterMesh.Effect.Techniques[ mWaterTechnique ];
+            mWaterMesh.Effect.CurrentTechnique = mWaterMesh.Effect.Techniques[ mWaterTechnique ];
 
             mCamera.UpdateMouse( Mouse.GetState(), mMouseScale );
             mCamera.BuildView();

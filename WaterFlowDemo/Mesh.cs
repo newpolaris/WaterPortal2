@@ -292,13 +292,16 @@ namespace WaterFlowDemo
                 Matrix worldInvTrans = Matrix.Invert(world);
                 worldInvTrans = Matrix.Transpose(worldInvTrans);
 
-                mEffect.Parameters[ "World" ].SetValue( world );
+                mEffect.Parameters["World"].SetValue( world );
                 mEffect.Parameters["WorldInvTrans"].SetValue(worldInvTrans);
                 mEffect.Parameters["WorldViewProj"].SetValue(world * mView * mProj);
                 if (mTexture == null)
                     mEffect.Parameters["DiffuseTex"].SetValue(((BasicEffect)mesh.Effects[0]).Texture);
                 else
                     mEffect.Parameters["DiffuseTex"].SetValue(mTexture);
+
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                    part.Effect = mEffect;
 
                 foreach (EffectPass pass in mEffect.CurrentTechnique.Passes)
                 {
