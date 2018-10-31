@@ -1,13 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
 
 namespace WaterFlowDemo
 {
@@ -34,6 +28,8 @@ namespace WaterFlowDemo
         private GameTime mGameTime;
 
         private int mWaterTechnique;
+
+        private RasterizerState rsCullNone;
 
         #endregion
 
@@ -63,6 +59,9 @@ namespace WaterFlowDemo
         /// </summary>
         protected override void Initialize()
         {
+            rsCullNone = new RasterizerState();
+            rsCullNone.CullMode = CullMode.None;
+
             //Setup the camera used to render with
             mCamera = new Camera();
             mCamera.LookAt( new Vector3( 23.0f, 6.5f, -41.4f ), new Vector3( 11.0f, 6.7f, -32.0f ) );
@@ -122,7 +121,7 @@ namespace WaterFlowDemo
             mWaterMesh.World = Matrix.CreateTranslation( Vector3.UnitY * 2.5f );
             mWaterMesh.RenderObjects = DrawObjects;
 
-            Components.Add( mWaterMesh );
+            // Components.Add( mWaterMesh );
 
             base.Initialize();
 
@@ -184,12 +183,12 @@ namespace WaterFlowDemo
                 ( (Mesh)gc ).Projection = mCamera.Projection;
             }
 
-            mWaterMesh.SetCamera( mCamera.ViewProj, mCamera.Position );
-            mWaterMesh.UpdateWaterMaps( gameTime );
+            // TODO:
+            // mWaterMesh.SetCamera( mCamera.ViewProj, mCamera.Position );
+            // mWaterMesh.UpdateWaterMaps( gameTime );
 
             GraphicsDevice.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, Color.CornflowerBlue, 1.0f, 1 );
-
-            GraphicsDevice.RenderState.CullMode = CullMode.None;
+            GraphicsDevice.RasterizerState = rsCullNone;
 
             base.Draw( gameTime );
 
@@ -254,7 +253,8 @@ namespace WaterFlowDemo
             else if ( keyState.IsKeyDown( Keys.D3 ) )
                 mWaterTechnique = 2;
 
-            mWaterMesh.Effect.CurrentTechnique = mWaterMesh.Effect.Techniques[ mWaterTechnique ];
+            // TODO:
+            // mWaterMesh.Effect.CurrentTechnique = mWaterMesh.Effect.Techniques[ mWaterTechnique ];
 
             mCamera.UpdateMouse( Mouse.GetState(), mMouseScale );
             mCamera.BuildView();

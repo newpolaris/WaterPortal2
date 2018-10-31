@@ -20,47 +20,30 @@ namespace WaterFlowDemo
         {
             base.LoadContent();
 
-            mEnvTexture.GenerateMipMaps(TextureFilter.Anisotropic);
+            // TODO:
+            // mEnvTexture.GenerateMipMaps(TextureFilter.Anisotropic);
             mEffect.Parameters["EnvMap"].SetValue(mEnvTexture);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            CullMode cullmode = Game.GraphicsDevice.RenderState.CullMode;
+            var rasterstate = Game.GraphicsDevice.RasterizerState;
 
-            Game.GraphicsDevice.RenderState.CullMode = CullMode.None;
+            Game.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
             Matrix world = mWorld * Matrix.CreateTranslation(mViewPos);
             mEffect.Parameters["WorldViewProj"].SetValue(world * mView * mProj);
 
-            mEffect.Begin(SaveStateMode.None);
-
             foreach (ModelMesh mesh in mMesh.Meshes)
             {
-                //set the index buffer 
-                Game.GraphicsDevice.Indices = mesh.IndexBuffer;
-
                 foreach (EffectPass pass in mEffect.CurrentTechnique.Passes)
                 {
-                    pass.Begin();
-                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
-                    {
-                        Game.GraphicsDevice.Vertices[0].SetSource(
-                        mesh.VertexBuffer, meshPart.StreamOffset, meshPart.VertexStride);
-
-                        Game.GraphicsDevice.VertexDeclaration = meshPart.VertexDeclaration;
-
-                        Game.GraphicsDevice.DrawIndexedPrimitives(
-                            PrimitiveType.TriangleList, meshPart.BaseVertex, 0,
-                            meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
-                    }
-                    pass.End();
+                    pass.Apply();
+                    mesh.Draw();
                 }
             }
 
-            mEffect.End();
-
-            Game.GraphicsDevice.RenderState.CullMode = cullmode;
+            Game.GraphicsDevice.RasterizerState = rasterstate;
         }
     }
 }

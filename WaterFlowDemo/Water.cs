@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 namespace WaterFlowDemo
 {
@@ -200,14 +195,12 @@ namespace WaterFlowDemo
             }
 
             mVertexBuffer = new VertexBuffer( Game.GraphicsDevice,
-                                             VertexPositionTexture.SizeInBytes * mOptions.Width * mOptions.Height,
+                                             VertexPositionTexture.VertexDeclaration, mOptions.Width * mOptions.Height,
                                              BufferUsage.WriteOnly );
             mVertexBuffer.SetData( vertices );
 
             mIndexBuffer = new IndexBuffer( Game.GraphicsDevice, typeof( int ), indices.Length, BufferUsage.WriteOnly );
             mIndexBuffer.SetData( indices );
-
-            mDecl = new VertexDeclaration( Game.GraphicsDevice, VertexPositionTexture.VertexElements );
 
             //normalzie the sun direction in case the user didn't
             mOptions.FlowMapOffset0 = 0.0f;
@@ -227,15 +220,14 @@ namespace WaterFlowDemo
             //get the attributes of the back buffer
             PresentationParameters pp = Game.GraphicsDevice.PresentationParameters;
             SurfaceFormat format = pp.BackBufferFormat;
-            MultiSampleType msType = pp.MultiSampleType;
-            int msQuality = pp.MultiSampleQuality;
+            DepthFormat depthformat = DepthFormat.Depth24;
 
             //create the reflection and refraction render targets
             //using the backbuffer attributes
             mRefractionMap = new RenderTarget2D( Game.GraphicsDevice, mOptions.RenderTargetSize, mOptions.RenderTargetSize,
-                                                1, format, msType, msQuality );
+                                                false, format, depthformat );
             mReflectionMap = new RenderTarget2D( Game.GraphicsDevice, mOptions.RenderTargetSize, mOptions.RenderTargetSize,
-                                                1, format, msType, msQuality );
+                                                false, format, depthformat );
 
             mEffect = Game.Content.Load<Effect>( mEffectAsset );
 
@@ -282,26 +274,20 @@ namespace WaterFlowDemo
         {
             //don't cull back facing triangles since we want the water to be visible
             //from beneath the water plane too
-            Game.GraphicsDevice.RenderState.CullMode = CullMode.None;
+            Game.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
             UpdateEffectParams();
 
             Game.GraphicsDevice.Indices = mIndexBuffer;
-            Game.GraphicsDevice.Vertices[ 0 ].SetSource( mVertexBuffer, 0, VertexPositionTexture.SizeInBytes );
-            Game.GraphicsDevice.VertexDeclaration = mDecl;
-
-            mEffect.Begin( SaveStateMode.None );
+            Game.GraphicsDevice.SetVertexBuffer(mVertexBuffer);
 
             foreach ( EffectPass pass in mEffect.CurrentTechnique.Passes )
             {
-                pass.Begin();
+                pass.Apply();
                 Game.GraphicsDevice.DrawIndexedPrimitives( PrimitiveType.TriangleList, 0, 0, mNumVertices, 0, mNumTris );
-                pass.End();
             }
 
-            mEffect.End();
-
-            Game.GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
+            Game.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
         }
 
         /// <summary>
@@ -326,10 +312,10 @@ namespace WaterFlowDemo
              * Render to the Reflection Map
              */
             //clip objects below the water line, and render the scene upside down
-            GraphicsDevice.RenderState.CullMode = CullMode.CullClockwiseFace;
+            Game.GraphicsDevice.RasterizerState = RasterizerState.CullClockwise;
 
-            GraphicsDevice.SetRenderTarget( 0, mReflectionMap );
-            GraphicsDevice.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 0 );
+            Game.GraphicsDevice.SetRenderTarget( mReflectionMap );
+            Game.GraphicsDevice.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 0 );
 
             //reflection plane in local space
             //the w value can be used to raise or lower the plane to hide gaps between objects and their
@@ -348,18 +334,20 @@ namespace WaterFlowDemo
             //reflection plane in homogeneous space
             Vector4 waterPlaneH = Vector4.Transform( waterPlaneL, wvpInvTrans );
 
-            GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = true;
-            GraphicsDevice.ClipPlanes[ 0 ].Plane = new Plane( waterPlaneH );
+            // TODO
+            // GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = true;
+            // GraphicsDevice.ClipPlanes[ 0 ].Plane = new Plane( waterPlaneH );
 
             Matrix reflectionMatrix = Matrix.CreateReflection( new Plane( waterPlaneW ) );
 
             if ( mDrawFunc != null )
                 mDrawFunc( reflectionMatrix );
 
-            GraphicsDevice.RenderState.CullMode = CullMode.CullCounterClockwiseFace;
-            GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = false;
+            Game.GraphicsDevice.RasterizerState = RasterizerState.CullClockwise;
+            // TODO
+            // Game.GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = false;
 
-            GraphicsDevice.SetRenderTarget( 0, null );
+            Game.GraphicsDevice.SetRenderTarget( null );
 
 
             /*------------------------------------------------------------------------------------------
@@ -377,8 +365,8 @@ namespace WaterFlowDemo
 
             //update the refraction map, clip objects above the water line
             //so we don't get artifacts
-            GraphicsDevice.SetRenderTarget( 0, mRefractionMap );
-            GraphicsDevice.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 1 );
+            Game.GraphicsDevice.SetRenderTargets( mRefractionMap );
+            Game.GraphicsDevice.Clear( ClearOptions.Target | ClearOptions.DepthBuffer, mOptions.WaterColor, 1.0f, 1 );
 
             //only clip if the camera is above the water plane
             if ( mViewPos.Y > World.Translation.Y )
@@ -395,15 +383,17 @@ namespace WaterFlowDemo
                 //refrection plane in homogeneous space
                 waterPlaneH = Vector4.Transform( waterPlaneL, wvpInvTrans );
 
-                GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = true;
-                GraphicsDevice.ClipPlanes[ 0 ].Plane = new Plane( waterPlaneH );
+                // TODO
+                // Game.GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = true;
+                // Game.GraphicsDevice.ClipPlanes[ 0 ].Plane = new Plane( waterPlaneH );
             }
 
             if ( mDrawFunc != null )
                 mDrawFunc( Matrix.Identity );
 
-            GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = false;
-            GraphicsDevice.SetRenderTarget( 0, null );
+            // TODO
+            // GraphicsDevice.ClipPlanes[ 0 ].IsEnabled = false;
+            Game.GraphicsDevice.SetRenderTarget( null );
         }
 
         /// <summary>
@@ -412,8 +402,8 @@ namespace WaterFlowDemo
         private void UpdateEffectParams()
         {
             //update the reflection and refraction textures
-            mEffect.Parameters[ "ReflectMap" ].SetValue( mReflectionMap.GetTexture() );
-            mEffect.Parameters[ "RefractMap" ].SetValue( mRefractionMap.GetTexture() );
+            mEffect.Parameters[ "ReflectMap" ].SetValue( mReflectionMap );
+            mEffect.Parameters[ "RefractMap" ].SetValue( mRefractionMap );
 
             //normal map offsets
             mEffect.Parameters[ "FlowMapOffset0" ].SetValue( mOptions.FlowMapOffset0 );

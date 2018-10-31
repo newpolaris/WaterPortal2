@@ -213,7 +213,8 @@ namespace WaterFlowDemo
             if (mEnvTexAsset != null)
             {
                 mEnvTexture = Game.Content.Load<TextureCube>(mEnvTexAsset);
-                mEnvTexture.GenerateMipMaps(TextureFilter.Anisotropic);
+                // TODO:
+                // mEnvTexture.GenerateMipMaps(TextureFilter.Anisotropic);
             }
 
             base.LoadContent();
@@ -284,8 +285,6 @@ namespace WaterFlowDemo
             Matrix[] boneTransforms = new Matrix[mMesh.Bones.Count];
             mMesh.CopyAbsoluteBoneTransformsTo(boneTransforms);
 
-            mEffect.Begin(SaveStateMode.None);
-
             foreach (ModelMesh mesh in mMesh.Meshes)
             {
                 Matrix world = boneTransforms[mesh.ParentBone.Index] * mWorld;
@@ -301,28 +300,12 @@ namespace WaterFlowDemo
                 else
                     mEffect.Parameters["DiffuseTex"].SetValue(mTexture);
 
-                //set the index buffer 
-                Game.GraphicsDevice.Indices = mesh.IndexBuffer;
-
                 foreach (EffectPass pass in mEffect.CurrentTechnique.Passes)
                 {
-                    pass.Begin();
-                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
-                    {
-                        Game.GraphicsDevice.Vertices[0].SetSource(
-                        mesh.VertexBuffer, meshPart.StreamOffset, meshPart.VertexStride);
-
-                        Game.GraphicsDevice.VertexDeclaration = meshPart.VertexDeclaration;
-
-                        Game.GraphicsDevice.DrawIndexedPrimitives(
-                            PrimitiveType.TriangleList, meshPart.BaseVertex, 0,
-                            meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
-                    }
-                    pass.End();
+                    pass.Apply();
+                    mesh.Draw();
                 }
             }
-
-            mEffect.End();
         }
 
         protected void ComputeBoundingBoxFromPoints(Vector3[] points, out Vector3 min, out Vector3 max)
