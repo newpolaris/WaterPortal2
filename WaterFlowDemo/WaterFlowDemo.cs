@@ -28,6 +28,7 @@ namespace WaterFlowDemo
         private GameTime mGameTime;
 
         private int mWaterTechnique;
+        private bool bEableClipplane = true;
 
         #endregion
 
@@ -214,7 +215,7 @@ namespace WaterFlowDemo
                 //combine the old matrix with the refleciton matrix
                 model.World = oldWorld * reflMatrix;
 
-                model.Draw( mGameTime, bclip, clipplane );
+                model.Draw( mGameTime, bclip && bEableClipplane, clipplane );
 
                 //restore the old matrix for regular rendering
                 model.World = oldWorld;
@@ -239,6 +240,9 @@ namespace WaterFlowDemo
                 mCamera.Strafe( -mCameraVelocity * timeDelta );
             if ( keyState.IsKeyDown( Keys.D ) )
                 mCamera.Strafe( mCameraVelocity * timeDelta );
+
+            if ( keyState.IsKeyDown(Keys.B) )
+                bEableClipplane = !bEableClipplane;
 
             if ( keyState.IsKeyDown( Keys.D1 ) )
                 mWaterTechnique = 0;

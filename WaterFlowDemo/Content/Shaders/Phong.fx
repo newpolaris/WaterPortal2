@@ -67,7 +67,8 @@ OutputVS PhongVS(float3 posL : POSITION0, float3 normalL : NORMAL0)
 
 float4 PhongPS(float3 positionW : TEXCOORD3, float3 normalW : TEXCOORD0, float2 tex0 : TEXCOORD1, float height : TEXCOORD2) : COLOR
 {
-    clip(dot(Clipplane, float4(positionW, 1.0))); 
+    if (ClipPlaneEnable)
+        clip(dot(Clipplane, float4(positionW, 1.0)));
 
 	// Interpolated normals can become unnormal--so normalize.
 	normalW = normalize(normalW);

@@ -243,7 +243,7 @@ namespace WaterFlowDemo
             }
         }
 
-        public void Draw(GameTime gameTime, bool bclipplane, Plane clipplane)
+        public virtual void Draw(GameTime gameTime, bool bclipplane, Plane clipplane)
         {
             //draw with the basic effect
             if (mEffect == null)
