@@ -338,7 +338,7 @@ namespace WaterFlowDemo
             if ( mDrawFunc != null )
                 mDrawFunc( reflectionMatrix, true, new Plane( waterPlaneW ) );
 
-            Game.GraphicsDevice.RasterizerState = RasterizerState.CullClockwise;
+            Game.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
             Game.GraphicsDevice.SetRenderTarget( null );
 
 
